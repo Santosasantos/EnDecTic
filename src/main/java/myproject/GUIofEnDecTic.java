@@ -9,6 +9,8 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicButtonUI;
+import java.net.*;
+import javax.swing.JLabel;
 //import myproject.RSA_code;
 
 
@@ -24,6 +26,9 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
 //    RSA_code r;
     CardLayout cr;
     String s,t,decipher;
+    static Startframe g;
+    JLabel w;
+
     
     
     public GUIofEnDecTic() {
@@ -37,9 +42,35 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
             }
         }
         cr=(CardLayout)Crdpane.getLayout();
+       
         
 //        s=EncryptPlainText
-        
+         if(g.send==true&&g.receive==false){
+             try{
+                 ServerSocket ser=new ServerSocket(1234);
+                 Socket soc1=ser.accept();
+                 if(soc1.isConnected())waitcon.setText("Connected with a client");
+                 
+                 
+            
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+            
+             
+           
+        }
+         else if(g.receive==true&&g.send==false){
+             try{
+                 InetAddress add=InetAddress.getLocalHost();
+               Socket soc2=new Socket(add.getHostName(),1234);
+               if(soc2.isConnected())waitcon.setText("Connected to server");
+             }
+             catch(Exception e){
+                 e.printStackTrace();
+             }
+         }
          
          
          
@@ -50,8 +81,8 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
     public String gt(){
         return EncryptPlainText.getText();
     }
-    public void sete(String p){
-        Encryptciphertext.setText(p);
+    static public void sete(String p){
+        
     }
 
 
@@ -66,9 +97,9 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
 
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         Crdpane = new javax.swing.JPanel();
         Keyexchangecard = new javax.swing.JPanel();
         Encryptcard = new javax.swing.JPanel();
@@ -78,22 +109,8 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
         EncryptCipherbutton = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Encryptciphertext = new javax.swing.JTextArea();
-        primep = new javax.swing.JButton();
-        primeq = new javax.swing.JButton();
-        n = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        primeptext = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        primeqtext = new javax.swing.JTextArea();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        ntext = new javax.swing.JTextArea();
-        phi = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        phitext = new javax.swing.JTextArea();
-        e = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        etext = new javax.swing.JTextArea();
         Sendencrypt = new javax.swing.JButton();
+        waitcon = new javax.swing.JLabel();
         Decryptcard = new javax.swing.JPanel();
         DecPlain = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
@@ -102,18 +119,12 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         DecPlainText = new javax.swing.JTextArea();
         jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("EnDecTic");
 
         jPanel1.setBackground(new java.awt.Color(51, 0, 102));
-
-        jButton1.setText("Key Exchange");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("Encrypt Data");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -129,6 +140,13 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Key Exchange");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -136,21 +154,21 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(99, 99, 99)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(jPanel1);
@@ -197,72 +215,6 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
         Encryptciphertext.setRows(5);
         jScrollPane2.setViewportView(Encryptciphertext);
 
-        primep.setText("Generate p");
-        primep.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prime p", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(51, 0, 153))); // NOI18N
-        primep.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                primepActionPerformed(evt);
-            }
-        });
-
-        primeq.setText("Generate q");
-        primeq.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prime q", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(51, 0, 153))); // NOI18N
-        primeq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                primeqActionPerformed(evt);
-            }
-        });
-
-        n.setText("Calculate n");
-        n.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "n=p*q", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(51, 0, 153))); // NOI18N
-        n.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nActionPerformed(evt);
-            }
-        });
-
-        primeptext.setColumns(20);
-        primeptext.setLineWrap(true);
-        primeptext.setRows(5);
-        primeptext.setText("187");
-        jScrollPane3.setViewportView(primeptext);
-
-        primeqtext.setColumns(20);
-        primeqtext.setLineWrap(true);
-        primeqtext.setRows(5);
-        jScrollPane4.setViewportView(primeqtext);
-
-        ntext.setColumns(20);
-        ntext.setLineWrap(true);
-        ntext.setRows(5);
-        jScrollPane5.setViewportView(ntext);
-
-        phi.setText("Calculate phi");
-        phi.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "phi=(p-1)*(q-1)", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(51, 0, 153))); // NOI18N
-        phi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                phiActionPerformed(evt);
-            }
-        });
-
-        phitext.setColumns(20);
-        phitext.setLineWrap(true);
-        phitext.setRows(5);
-        jScrollPane6.setViewportView(phitext);
-
-        e.setText("Generate E");
-        e.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Encryption key", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Liberation Sans", 0, 15), new java.awt.Color(51, 0, 153))); // NOI18N
-        e.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eActionPerformed(evt);
-            }
-        });
-
-        etext.setColumns(20);
-        etext.setLineWrap(true);
-        etext.setRows(5);
-        jScrollPane7.setViewportView(etext);
-
         Sendencrypt.setText("Send");
         Sendencrypt.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
         Sendencrypt.addActionListener(new java.awt.event.ActionListener() {
@@ -271,100 +223,58 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
             }
         });
 
+        waitcon.setBackground(new java.awt.Color(255, 255, 255));
+        waitcon.setFont(new java.awt.Font("Liberation Sans", 3, 18)); // NOI18N
+        waitcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        waitcon.setText("Waiting for Connection");
+        waitcon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 255), 10, true));
+
         javax.swing.GroupLayout EncryptcardLayout = new javax.swing.GroupLayout(Encryptcard);
         Encryptcard.setLayout(EncryptcardLayout);
         EncryptcardLayout.setHorizontalGroup(
             EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EncryptcardLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Encryptplainbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EncryptcardLayout.createSequentialGroup()
-                                .addComponent(n, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(EncryptcardLayout.createSequentialGroup()
-                                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                                        .addComponent(primeq, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                                        .addComponent(primep, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(24, 24, 24))))
-                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Encryptplainbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncryptcardLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2))
-                            .addGroup(EncryptcardLayout.createSequentialGroup()
-                                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                                        .addComponent(phi, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                                        .addComponent(e, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 334, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(EncryptcardLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addComponent(EncryptCipherbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncryptcardLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Sendencrypt, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29))))
+                        .addGap(22, 22, 22))
+                    .addGroup(EncryptcardLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 697, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(EncryptcardLayout.createSequentialGroup()
+                .addGap(264, 264, 264)
+                .addComponent(waitcon, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         EncryptcardLayout.setVerticalGroup(
             EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EncryptcardLayout.createSequentialGroup()
-                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(Encryptplainbutton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1))
-                    .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phi)
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(e)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(23, 23, 23)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(EncryptCipherbutton)
-                            .addComponent(Sendencrypt))))
+                .addGap(19, 19, 19)
+                .addComponent(waitcon, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EncryptCipherbutton)
+                    .addComponent(Encryptplainbutton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(primep)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(primeq)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(EncryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(n)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Sendencrypt)
+                        .addGap(63, 63, 63))
                     .addGroup(EncryptcardLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17))
+                        .addComponent(jScrollPane1)
+                        .addGap(23, 23, 23))))
         );
 
         Crdpane.add(Encryptcard, "Encryptcard");
@@ -395,24 +305,31 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setText("verify the message");
+        jButton5.setBorder(javax.swing.BorderFactory.createMatteBorder(5, 5, 5, 5, new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout DecryptcardLayout = new javax.swing.GroupLayout(Decryptcard);
         Decryptcard.setLayout(DecryptcardLayout);
         DecryptcardLayout.setHorizontalGroup(
             DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DecryptcardLayout.createSequentialGroup()
                 .addGap(52, 52, 52)
+                .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5)
+                    .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(DecCipher, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DecCipher, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(149, 149, 149)
-                .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DecPlain, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(206, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DecryptcardLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(472, 472, 472))
+                    .addGroup(DecryptcardLayout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DecPlain, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(206, Short.MAX_VALUE))
+                    .addGroup(DecryptcardLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(215, 215, 215))))
         );
         DecryptcardLayout.setVerticalGroup(
             DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -428,9 +345,11 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
                 .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(88, 88, 88)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(DecryptcardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         Crdpane.add(Decryptcard, "Decryptcard");
@@ -450,34 +369,6 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               cr.show(Crdpane, "Keyexchangecard");
-               
-             
-               
-               
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void primepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primepActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_primepActionPerformed
-
-    private void primeqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_primeqActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_primeqActionPerformed
-
-    private void nActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nActionPerformed
-
-    private void phiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_phiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_phiActionPerformed
-
-    private void eActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         cr.show(Crdpane, "Encryptcard");
@@ -499,6 +390,11 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
         // TODO add your handling code here:
         DecPlainText.setText(decipher);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cr.show(Crdpane, "Keyexchangecard");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -531,6 +427,9 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new GUIofEnDecTic().setVisible(true);
         });
+       
+        
+       
     }
     
     
@@ -550,30 +449,17 @@ public class GUIofEnDecTic extends javax.swing.JFrame {
     private javax.swing.JLabel Encryptplainbutton;
     private javax.swing.JPanel Keyexchangecard;
     private javax.swing.JButton Sendencrypt;
-    private javax.swing.JButton e;
-    private javax.swing.JTextArea etext;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JButton n;
-    private javax.swing.JTextArea ntext;
-    private javax.swing.JButton phi;
-    private javax.swing.JTextArea phitext;
-    private javax.swing.JButton primep;
-    private javax.swing.JTextArea primeptext;
-    private javax.swing.JButton primeq;
-    private javax.swing.JTextArea primeqtext;
+    private javax.swing.JLabel waitcon;
     // End of variables declaration//GEN-END:variables
 }
