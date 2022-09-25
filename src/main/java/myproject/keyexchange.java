@@ -20,7 +20,7 @@ public class keyexchange {
         int q=11;
         int alpha=findingprimitiveroot(q);
         double a=(double)alpha;
-        double xa=8.00,xb=4.00;
+        double xa=25.00,xb=5.00;
         Double alphapowxa=Math.pow(a,xa);
         Double alphapowxb=Math.pow(a, xb);
          int ya=alphapowxa.intValue()%q;
